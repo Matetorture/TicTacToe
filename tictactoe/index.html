@@ -143,20 +143,23 @@
                     get(gameRef).then((snapshot) => {
                         const value = snapshot.val();
 
-                        let board = value.board;
+                        if(value.turn == player){
 
-                        if(board[index]!='X' && board[index]!='O'){
-                            if(!player){
-                                board[index]='O';
-
-                            }else{
-                                board[index]='X';
+                            let board = value.board;
+    
+                            if(board[index]!='X' && board[index]!='O'){
+                                if(!player){
+                                    board[index]='O';
+                                }else{
+                                    board[index]='X';
+                                }
+                                update(gameRef, {
+                                    board: board,
+                                    turn: !player
+                                });
                             }
-                            update(gameRef, {
-                                board: board,
-                                turn: !player
-                            });
                         }
+
                     });
                 });
             });
