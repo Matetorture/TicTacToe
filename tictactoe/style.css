@@ -82,3 +82,17 @@ button:hover{
     width: 30px;
     cursor: pointer;
 }
+#resultInfo{
+    background-color: var(--bg);
+    border: #4f4f4f solid 3px;
+    position: fixed;
+    width: 20vw;
+    height: 12vh;
+    top: 30vh;
+    left: 25vw;
+    text-align: center;
+    padding: 14vw;
+    font-size: 35px;
+    opacity: 0.8;
+    display: none;
+}
