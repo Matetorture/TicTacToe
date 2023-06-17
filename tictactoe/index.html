@@ -9,27 +9,36 @@
 </head>
 <body>
     
-    <input type="text" id="joinCode">
-    <button id="joinGame">join</button><br>
-    <span id="gameCode"></span><span id="copy"></span><button id="createGame">create</button>
+    <h1>Tic Tac Toe</h1>
+
+    <menu>
+        <button id="createGame">CREATE GAME</button>
+        <br><br>OR<br><br>
+        <input type="text" id="joinCode">
+        <button id="joinGame">JOIN</button>
+    </menu>
+
+    <div id="code">
+        <span id="gameCode"></span><span id="copy"></span>
+    </div>
 
     <div id="game">
         <span id="turn">Turn</span>
         <table id="board">
             <tr>
-                <td class="empty">0</td>
-                <td class="empty">1</td>
-                <td class="empty">2</td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
             </tr>
             <tr>
-                <td class="empty">3</td>
-                <td class="empty">4</td>
-                <td class="empty">5</td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
             </tr>
             <tr>
-                <td class="empty">6</td>
-                <td class="empty">7</td>
-                <td class="empty">8</td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
             </tr>
         </table>
     </div>
@@ -40,7 +49,12 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         
         const firebaseConfig = {
-          //key
+          apiKey: "AIzaSyBkh76XSglmvjtSp8AXDRmG0qVlwGdsgaY",
+          authDomain: "tictactoe-game-29ef6.firebaseapp.com",
+          projectId: "tictactoe-game-29ef6",
+          storageBucket: "tictactoe-game-29ef6.appspot.com",
+          messagingSenderId: "1010394594203",
+          appId: "1:1010394594203:web:85b5acaeb6ea01482aff3e"
         };
       
         
@@ -240,6 +254,7 @@
             return code;
         }
         const refHTML = {
+            menu: document.querySelector('menu'),
             joinCode: document.querySelector('#joinCode'),
             joinGame: document.querySelector('#joinGame'),
             createGame: document.querySelector('#createGame'),
@@ -253,14 +268,12 @@
         refHTML.createGame.addEventListener('click', ()=>{
             const { gameId, gameCode } = createGame();
 
-            refHTML.gameCode.innerHTML = `Code: ${gameCode} `;
+            refHTML.gameCode.innerHTML = `Code: <span id="codeColor">${gameCode}<span> `;
             refHTML.copy.innerHTML = `COPY`;
             refHTML.copy.addEventListener('click', () => {
                 navigator.clipboard.writeText(gameCode);
             });
-            refHTML.joinCode.style.display = "none";
-            refHTML.joinGame.style.display = "none";
-            refHTML.createGame.style.display = "none";
+            refHTML.menu.style.display = "none";
 
             initGame(gameId, 0);
         });
@@ -270,9 +283,7 @@
             joinedGame.then(function(result) {
                 if (result) {
                     console.log("Join!");
-                    refHTML.joinCode.style.display = "none";
-                    refHTML.joinGame.style.display = "none";
-                    refHTML.createGame.style.display = "none";
+                    refHTML.menu.style.display = "none";
                     initGame(result, 1);
                 } else {
                     console.log("Unable to join the game.");
